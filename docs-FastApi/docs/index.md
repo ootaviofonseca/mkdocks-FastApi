@@ -1,17 +1,16 @@
-# Welcome to MkDocs
+# FastAPI
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## O que é FastAPI?
 
-## Commands
+FastAPI é uma framework web moderna e de alto desempenho para construir APIs com Python. Ela utiliza anotações de tipo do Python para fornecer uma interface intuitiva e validação automática de dados.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Vantagens
 
-## Project layout
+- **Alta Performance:** Graças ao uso de ASGI e suporte a async/await, é extremamente eficiente para lidar com muitas conexões simultâneas.
+- **Documentação Automática:** Gera documentação interativa de API automaticamente usando OpenAPI e JSON Schema.
+- **Validação Automática de Dados:** Pydantic é usado para validar dados, garantindo a conformidade com os tipos esperados.
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+## Desvantagens
+
+- **Curva de Aprendizado:** A complexidade aumenta ao trabalhar com operações assíncronas e conceitos de ASGI.
+- **Dependência de Pydantic:** A performance pode ser limitada em casos de dados extremamente complexos.

@@ -1,1 +1,11 @@
-site_name: FastApi
+
+site_name: Documentação FastAPI
+nav:
+  
+  - Home: index.md
+  - Instalação: instalacao.md
+  - Exemplos: exemplos.md
+  - Execução: execucao.md
+  - Melhores Práticas e Dicas: melhores_praticas.md
+  - Referências: referencias.md
+theme: readthedocs
