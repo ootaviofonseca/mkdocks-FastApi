@@ -20,8 +20,9 @@ Utilize as dependências do FastAPI para simplificar e organizar a lógica comum
 ## Tratamento de Erros
 
 Implemente tratamento de erros adequado para fornecer feedback claro e útil aos usuários da API. Use a exceção `HTTPException` para retornar códigos de status HTTP apropriados e mensagens de erro. Exemplo:
-
+ 
 ```python
+
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
