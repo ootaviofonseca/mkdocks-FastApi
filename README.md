@@ -1,6 +1,4 @@
-# 🗎 Documentação do FastAPI usando Mkdocs 
-
-## 🖊️ Descrição do Trabalho 
+# 🗎 Documentação do FastAPI usando Mkdocs 🖊️
 O trabalho consiste em uma documentação do FastAPI utilizando o Mkdocs como forma de organização do trabalho.
 
 ##  🤝 Contribuidores
