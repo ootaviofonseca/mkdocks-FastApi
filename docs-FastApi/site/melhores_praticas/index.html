@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Melhores Práticas e Dicas - Documentação FastAPI</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Melhores Pr\u00e1ticas e Dicas";
+        var mkdocs_page_input_path = "melhores_praticas.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentação FastAPI
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../instalacao/">Instalação</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../exemplos/">Exemplos</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../execucao/">Execução</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Melhores Práticas e Dicas</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#estrutura-de-projeto">Estrutura de Projeto</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#uso-de-dependencias">Uso de Dependências</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tratamento-de-erros">Tratamento de Erros</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../referencias/">Referências</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentação FastAPI</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+      <li class="breadcrumb-item active">Melhores Práticas e Dicas</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="melhores-praticas-e-dicas">Melhores Práticas e Dicas</h1>
+<h2 id="estrutura-de-projeto">Estrutura de Projeto</h2>
+<p>Organize seu projeto utilizando uma estrutura de pastas clara. Uma estrutura recomendada pode incluir:</p>
+<ul>
+<li><strong><code>app/</code></strong>: Contém o código principal da aplicação.</li>
+<li><strong><code>main.py</code></strong>: Arquivo principal onde a aplicação FastAPI é criada.</li>
+<li><strong><code>routers/</code></strong>: Contém os módulos de roteamento.</li>
+<li><strong><code>models/</code></strong>: Contém os modelos de dados.</li>
+<li><strong><code>schemas/</code></strong>: Contém os esquemas de validação (usando Pydantic).</li>
+<li><strong><code>services/</code></strong>: Contém a lógica de negócios.</li>
+<li><strong><code>tests/</code></strong>: Contém os testes da aplicação.</li>
+<li><strong><code>requirements.txt</code></strong> ou <strong><code>pyproject.toml</code></strong>: Gerencia as dependências do projeto.</li>
+</ul>
+<h2 id="uso-de-dependencias">Uso de Dependências</h2>
+<p>Utilize as dependências do FastAPI para simplificar e organizar a lógica comum, como autenticação, conexão com banco de dados e validação. Defina dependências em funções de endpoint e use o sistema de injeção de dependências para manter o código modular e reutilizável.</p>
+<h2 id="tratamento-de-erros">Tratamento de Erros</h2>
+<p>Implemente tratamento de erros adequado para fornecer feedback claro e útil aos usuários da API. Use a exceção <code>HTTPException</code> para retornar códigos de status HTTP apropriados e mensagens de erro. Exemplo:</p>
+<p>```python</p>
+<p>from fastapi import FastAPI, HTTPException</p>
+<p>app = FastAPI()</p>
+<p>@app.get("/items/{item_id}")
+def read_item(item_id: int):
+    if item_id not in fake_items_db:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return fake_items_db[item_id]</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../execucao/" class="btn btn-neutral float-left" title="Execução"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../referencias/" class="btn btn-neutral float-right" title="Referências">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../execucao/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../referencias/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
