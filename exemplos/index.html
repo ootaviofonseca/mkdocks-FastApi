@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Exemplos - Documentação FastAPI</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Exemplos";
+        var mkdocs_page_input_path = "exemplos.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentação FastAPI
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../instalacao/">Instalação</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Exemplos</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-crie-um-arquivo-mainpy-com-o-seguinte-conteudo">1. Crie um arquivo main.py com o seguinte conteúdo:</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-executar-a-aplicacao-fastapi">2. Executar a Aplicação FastAPI</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-testar-a-aplicacao">3. Testar a Aplicação</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#exemplos-de-testes">Exemplos de testes</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../execucao/">Execução</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../melhores_praticas/">Melhores Práticas e Dicas</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../referencias/">Referências</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentação FastAPI</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Exemplos</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="criar-e-executar-uma-aplicacao-fastapi">Criar e Executar uma Aplicação FastAPI</h1>
+<p>Agora que você instalou o FastAPI e o Uvicorn, vamos criar uma aplicação mais robusta. Esta aplicação incluirá endpoints para operações CRUD (Create, Read, Update, Delete) e usará Pydantic para validação de dados.</p>
+<h2 id="1-crie-um-arquivo-mainpy-com-o-seguinte-conteudo">1. Crie um arquivo main.py com o seguinte conteúdo:</h2>
+<p>Crie um arquivo chamado <code>main.py</code> e adicione o seguinte conteúdo:</p>
+<pre><code class="language-python">from typing import List, Optional
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+app = FastAPI()
+
+# Modelo de dados
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+
+# Simulando um banco de dados em memória
+fake_items_db = {}
+
+@app.post(&quot;/items/&quot;, response_model=Item)
+def create_item(item: Item):
+    item_id = len(fake_items_db) + 1
+    fake_items_db[item_id] = item
+    return item
+
+@app.get(&quot;/items/&quot;, response_model=List[Item])
+def read_items():
+    return list(fake_items_db.values())
+
+@app.get(&quot;/items/{item_id}&quot;, response_model=Item)
+def read_item(item_id: int):
+    item = fake_items_db.get(item_id)
+    if item is None:
+        raise HTTPException(status_code=404, detail=&quot;Item not found&quot;)
+    return item
+
+@app.put(&quot;/items/{item_id}&quot;, response_model=Item)
+def update_item(item_id: int, item: Item):
+    if item_id not in fake_items_db:
+        raise HTTPException(status_code=404, detail=&quot;Item not found&quot;)
+    fake_items_db[item_id] = item
+    return item
+
+@app.delete(&quot;/items/{item_id}&quot;, response_model=dict)
+def delete_item(item_id: int):
+    if item_id not in fake_items_db:
+        raise HTTPException(status_code=404, detail=&quot;Item not found&quot;)
+    del fake_items_db[item_id]
+    return {&quot;message&quot;: &quot;Item deleted successfully&quot;}
+</code></pre>
+<h2 id="2-executar-a-aplicacao-fastapi">2. Executar a Aplicação FastAPI</h2>
+<p>No terminal, navegue até o diretório onde o arquivo main.py está localizado e execute o seguinte comando para iniciar o servidor:</p>
+<pre><code class="language-bash">    uvicorn main:app --reload
+
+</code></pre>
+<p>Isso iniciará o servidor Uvicorn e a aplicação FastAPI estará disponível em http://127.0.0.1:8000.</p>
+<h2 id="3-testar-a-aplicacao">3. Testar a Aplicação</h2>
+<p>Você pode testar a aplicação usando o Swagger UI e ReDoc, que são automaticamente gerados pelo FastAPI:</p>
+<ul>
+<li>Swagger UI: Acesse http://127.0.0.1:8000/docs para ver a documentação interativa da API e testar os endpoints diretamente do navegador.</li>
+<li>ReDoc: Acesse http://127.0.0.1:8000/redoc para uma documentação alternativa e detalhada.</li>
+</ul>
+<h3 id="exemplos-de-testes">Exemplos de testes</h3>
+<ol>
+<li>
+<p>Criar um Item:</p>
+<ul>
+<li>Método: POST</li>
+<li>URL: http://127.0.0.1:8000/items/</li>
+<li>Corpo da Requisição:
+<code>json
+{
+    "name": "Item1",
+    "description": "Descrição do Item1",
+    "price": 25.50,
+    "tax": 2.50
+}</code></li>
+</ul>
+</li>
+<li>
+<p>Ler Itens:</p>
+<ul>
+<li>Método: GET</li>
+<li>URL: http://127.0.0.1:8000/items/</li>
+</ul>
+</li>
+<li>
+<p>Ler um Item Específico:</p>
+<ul>
+<li>Método: GET</li>
+<li>URL: http://127.0.0.1:8000/items/1</li>
+</ul>
+</li>
+<li>
+<p>Atualizar um Item:</p>
+<ul>
+<li>Método: PUT</li>
+<li>URL: http://127.0.0.1:8000/items/1</li>
+<li>Corpo da Requisição:
+<code>json
+{
+    "name": "Item1 Atualizado",
+    "description": "Descrição atualizada",
+    "price": 30.00,
+    "tax": 3.00
+}</code></li>
+</ul>
+</li>
+<li>
+<p>Excluir um Item:</p>
+<ul>
+<li>Método: DELETE</li>
+<li>URL: http://127.0.0.1:8000/items/1</li>
+</ul>
+</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../instalacao/" class="btn btn-neutral float-left" title="Instalação"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../execucao/" class="btn btn-neutral float-right" title="Execução">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../instalacao/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../execucao/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
