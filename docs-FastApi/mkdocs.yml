@@ -8,5 +8,5 @@ nav:
   - Execução: execucao.md
   - Melhores Práticas e Dicas: melhores_praticas.md
   - Referências: referencias.
-docs_dir: docs-FastApi/docs
+docs_dir: docs
 theme: readthedocs
