@@ -32,3 +32,9 @@ def read_item(item_id: int):
     if item_id not in fake_items_db:
         raise HTTPException(status_code=404, detail="Item not found")
     return fake_items_db[item_id]
+ 
+```
+
+## Comparação com outros frameworks
+
+Em comparação com outros frameworks populares como Flask e Django, o FastAPI se destaca por sua produtividade e eficiência. Sua sintaxe concisa e intuitiva simplifica a criação de rotas, validação de dados, autenticação e outras funcionalidades comuns em APIs. Além disso, o FastAPI suporta bibliotecas populares como Pydantic para validação de dados e SQLAlchemy para integração com bancos de dados.
