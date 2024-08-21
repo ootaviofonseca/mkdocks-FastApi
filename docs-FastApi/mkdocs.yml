@@ -7,5 +7,6 @@ nav:
   - Exemplos: exemplos.md
   - Execução: execucao.md
   - Melhores Práticas e Dicas: melhores_praticas.md
-  - Referências: referencias.md
+  - Referências: referencias.
+docs_dir: docs-FastApi/docs
 theme: readthedocs
